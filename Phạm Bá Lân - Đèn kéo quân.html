@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài tập 20 - Đèn Kéo Quân</title>
+    <style>
+        /* =========================================
+           CÔNG TẮC ĐIỀU CHỈNH ĐỘ ĐAN XEN (QUAN TRỌNG)
+           - Số càng nhỏ -> Lồng đèn càng ép chặt lại, viền gỗ đan vào nhau càng sâu.
+           - Số càng lớn -> Lồng đèn càng phình to ra.
+           (Tôi đã giảm từ 215px xuống thẳng 135px vì ảnh của bạn có viền trống quá lớn)
+        ========================================= */
+        :root {
+            --tz: 150px; 
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('background-moon.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            z-index: 10;
+        }
+
+        .header h1 {
+            color: #ffdf00;
+            font-size: 36px;
+            margin: 0 0 10px 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 20px #ffdf00, 2px 2px 5px #000;
+        }
+
+        .header .student-info {
+            color: #ffffff;
+            font-size: 20px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 4px #000;
+        }
+
+        .scene {
+            width: 300px;
+            height: 450px;
+            perspective: 1200px;
+            margin-bottom: 50px; 
+            margin-top: 20px;
+        }
+
+        .lantern {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: spin 15s infinite linear;
+        }
+
+        .face {
+            position: absolute;
+            width: 300px;
+            height: 450px;
+            left: 0;
+            top: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .face img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            
+            /* HIỆU ỨNG PHÁT SÁNG KÉP DÀNH CHO KHUNG GỖ */
+            filter: drop-shadow(0 0 15px #ffdf00) drop-shadow(0 0 30px #ff8c00);
+        }
+
+        /* Gọi biến --tz để tự động dịch chuyển trục Z */
+        .face:nth-child(1) { transform: rotateY(0deg) translateZ(var(--tz)); }
+        .face:nth-child(2) { transform: rotateY(60deg) translateZ(var(--tz)); }
+        .face:nth-child(3) { transform: rotateY(120deg) translateZ(var(--tz)); }
+        .face:nth-child(4) { transform: rotateY(180deg) translateZ(var(--tz)); }
+        .face:nth-child(5) { transform: rotateY(240deg) translateZ(var(--tz)); }
+        .face:nth-child(6) { transform: rotateY(300deg) translateZ(var(--tz)); }
+
+        .decor-bottom {
+            position: absolute;
+            bottom: -150px; 
+            left: 50%;
+            transform: translateX(-50%); 
+            width: 130px; 
+            height: auto;
+            pointer-events: none;
+        }
+
+        .decor-bottom img {
+            width: 100%;
+            /* HIỆU ỨNG PHÁT SÁNG KÉP DÀNH CHO TUA RUA (Đỏ rực) */
+            filter: drop-shadow(0 0 15px #ff0000) drop-shadow(0 0 40px #ff0000);
+        }
+
+        @keyframes spin {
+            from { transform: rotateY(0deg); }
+            to   { transform: rotateY(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Bài tập 20 - Kiểm tra giữa kỳ: Đèn Kéo Quân</h1>
+        <div class="student-info">Phạm Bá Lân - 221A310267</div>
+    </div>
+
+    <div class="scene">
+        <div class="lantern" id="myLantern">
+            
+            <div class="face"><img src="anh1.png" alt="Mặt 1"></div>
+            <div class="face"><img src="anh2.png" alt="Mặt 2"></div>
+            <div class="face"><img src="anh3.png" alt="Mặt 3"></div>
+            <div class="face"><img src="anh4.png" alt="Mặt 4"></div>
+            <div class="face"><img src="anh5.png" alt="Mặt 5"></div>
+            <div class="face"><img src="anh6.png" alt="Mặt 6"></div>
+
+            <div class="decor-bottom">
+                <img src="anh0.png" alt="Tua rua">
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        const lantern = document.getElementById('myLantern');
+
+        lantern.addEventListener('mouseover', function() {
+            lantern.style.animationPlayState = 'paused';
+        });
+
+        lantern.addEventListener('mouseout', function() {
+            lantern.style.animationPlayState = 'running';
+        });
+    </script>
+
+</body>
+</html>
